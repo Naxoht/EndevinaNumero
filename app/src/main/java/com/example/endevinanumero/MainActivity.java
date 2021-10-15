@@ -19,6 +19,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     EditText number;
+    EditText name;
     int tries = 1;
     Random rand = new Random();
     int randomNumber = rand.nextInt(100)+1;
@@ -30,19 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
         number = (EditText) findViewById(R.id.numUser);
         final Button button = findViewById(R.id.comprova);
+        name = (EditText) findViewById(R.id.name);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String numberUser = number.getText().toString();
                 int value = Integer.parseInt(numberUser);
+                String nameUser = name.getText().toString();
                 Context context = getApplicationContext();
                 CharSequence text = "";
-
+                /*
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
                 alert.setTitle("Title");
-                alert.setMessage("Message");
+                alert.setMessage("Enter your name");
 
                 final EditText input = new EditText(context);
                 alert.setView(input);
@@ -59,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 alert.show();
+                */
+
 
                 int duration = Toast.LENGTH_SHORT;
+
                 if ( randomNumber > value) {
                     text = "El numero que buscas es mayor al insertado.";
                     tries++;
@@ -78,12 +84,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                     randomNumber = rand.nextInt(100)+1;
-                    Intent intent = new Intent(context,RecordActivity.class);
+                    Intent intent = new Intent(context,RankingActivity.class);
                     intent.putExtra("intentos",tries);
-                    intent.putExtra("user","Nacho Hidalgo");
+                    intent.putExtra("user",nameUser);
                     startActivity(intent);
                     tries = 1;
                 }
+
             }
         });
     }
