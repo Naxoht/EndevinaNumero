@@ -19,7 +19,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     EditText number;
-    EditText name;
     int tries = 1;
     Random rand = new Random();
     int randomNumber = rand.nextInt(100)+1;
@@ -31,21 +30,19 @@ public class MainActivity extends AppCompatActivity {
 
         number = (EditText) findViewById(R.id.numUser);
         final Button button = findViewById(R.id.comprova);
-        name = (EditText) findViewById(R.id.name);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String numberUser = number.getText().toString();
                 int value = Integer.parseInt(numberUser);
-                String nameUser = name.getText().toString();
-                Context context = getApplicationContext();
+                Context context = MainActivity.this;
                 CharSequence text = "";
-                /*
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-                alert.setTitle("Title");
-                alert.setMessage("Enter your name");
+                alert.setTitle("Felicidades!");
+                alert.setMessage("Has acertado el numero\nIngresa tu nombre para el ranking");
 
                 final EditText input = new EditText(context);
                 alert.setView(input);
@@ -53,17 +50,23 @@ public class MainActivity extends AppCompatActivity {
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String userName = input.getText().toString();
+                        Intent intent = new Intent(context,RankingActivity.class);
+                        intent.putExtra("intentos",tries);
+                        intent.putExtra("user",userName);
+                        tries = 1;
+                        randomNumber = rand.nextInt(100)+1;
+                        startActivity(intent);
+
+
                     }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
+                        tries = 1;
+                        randomNumber = rand.nextInt(100)+1;
                     }
                 });
-                alert.show();
-                */
-
 
                 int duration = Toast.LENGTH_SHORT;
 
@@ -80,15 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                     number.setText("");
                 }if (randomNumber == value){
-                    text = "Has andrevinado el numero.";
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    randomNumber = rand.nextInt(100)+1;
-                    Intent intent = new Intent(context,RankingActivity.class);
-                    intent.putExtra("intentos",tries);
-                    intent.putExtra("user",nameUser);
-                    startActivity(intent);
-                    tries = 1;
+                    alert.show();
                 }
 
             }
