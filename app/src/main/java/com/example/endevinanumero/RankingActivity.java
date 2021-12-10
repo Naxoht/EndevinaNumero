@@ -48,25 +48,25 @@ public class RankingActivity extends AppCompatActivity {
         users.add(getIntent().getStringExtra("user"));
         usersTries.add((getIntent().getIntExtra("intentos",1)));
         userImage.add(Uri.fromFile(new File(getIntent().getStringExtra("image"))));
-//        int i, j, auxTries;
-//        for (i = 0; i < usersTries.size() - 1; i++) {
-//            for (j = 0; j < usersTries.size()- 1; j++) {
-//                if (usersTries.get(j + 1) < usersTries.get(j)) {
-//                    auxTries = usersTries.get(j + 1);
-//                    usersTries.set(j + 1,usersTries.get(j));
-//                    System.out.println(j);
-//                    usersTries.set(j,usersTries.get(auxTries));
-//
-//                    String auxUsers = users.get(j + 1);
-//                    users.set(j + 1,users.get(j));
-//                    users.set(j,users.get(auxTries));
-//
-//                    Uri auxUri = userImage.get(j + 1);
-//                    userImage.set(j + 1,userImage.get(j));
-//                    userImage.set(j,userImage.get(auxTries));
-//                }
-//            }
-//        }
+        int i, j, auxTries;
+        for (i = 0; i < usersTries.size() - 1; i++) {
+            for (j = 0; j < usersTries.size()-i- 1; j++) {
+                if (usersTries.get(j + 1) < usersTries.get(j)) {
+                    auxTries = usersTries.get(j + 1);
+                    usersTries.set(j + 1,usersTries.get(j));
+                    System.out.println(j);
+                    usersTries.set(j,auxTries);
+
+                    String auxUsers = users.get(j + 1);
+                    users.set(j + 1,users.get(j));
+                    users.set(j,auxUsers);
+
+                    Uri auxUri = userImage.get(j + 1);
+                    userImage.set(j + 1,userImage.get(j));
+                    userImage.set(j,auxUri);
+                }
+            }
+        }
         // Inicialitzem model
         records = new ArrayList<Record>();
         // Afegim alguns exemples
